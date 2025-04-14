@@ -13,6 +13,18 @@ router.get("/", async (req, res) => {
 	}
 });
 
+// Get a single Project
+router.get("/:id", async (req, res) => {
+	try {
+		const project = await Project.findById(req.params.id);
+		if (!project)
+			res.status(404).json({ error: "Project with the Given ID not found" });
+		res.json(project);
+	} catch (error) {
+		res.status(500).json({ message: error.message });
+	}
+});
+
 // create a Project
 router.post("/", protect, async (req, res) => {
 	const { title, description, tags } = req.body;
@@ -25,7 +37,7 @@ router.post("/", protect, async (req, res) => {
 		await project.save();
 		res.json(project);
 	} catch (error) {
-		res.status(500).json({ error: error.message });
+		res.status(500).json({ message: error.message });
 	}
 });
 
