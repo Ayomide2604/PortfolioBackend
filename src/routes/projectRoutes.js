@@ -41,4 +41,14 @@ router.post("/", protect, async (req, res) => {
 	}
 });
 
+// Delete a project
+router.delete("/:id", protect, async (req, res) => {
+	try {
+		await Project.findByIdAndDelete(req.params.id);
+		res.json({ message: "Project deleted successfully" });
+	} catch (error) {
+		res.status(500).json({ message: error.message });
+	}
+});
+
 module.exports = router;
