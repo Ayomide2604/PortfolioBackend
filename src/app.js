@@ -8,7 +8,10 @@ dotenv.config();
 app.use(express.json());
 
 const authRoutes = require("./routes/authRoutes");
+const projectRoutes = require("./routes/projectRoutes");
+
 app.use("/api/auth", authRoutes);
+app.use("/api/projects", projectRoutes);
 
 // MongoDB connection
 mongoose
