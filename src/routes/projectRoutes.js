@@ -41,6 +41,27 @@ router.post("/", protect, async (req, res) => {
 	}
 });
 
+// Edit a Project
+router.put("/:id", protect, async (req, res) => {
+	const { title, description, tags } = req.body;
+	try {
+		const project = await Project.findByIdAndUpdate(
+			req.params.id,
+			{
+				title,
+				description,
+				tags,
+			},
+			{
+				new: true,
+			}
+		);
+		res.json(project);
+	} catch (error) {
+		res.status(500).json({ message: error.message });
+	}
+});
+
 // Delete a project
 router.delete("/:id", protect, async (req, res) => {
 	try {
